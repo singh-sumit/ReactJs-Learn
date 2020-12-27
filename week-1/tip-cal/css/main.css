@@ -1,0 +1,60 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+body{
+	background-color: teal;
+	color: #fff;
+}
+.container{
+	max-width: 700px;
+	margin: 20px auto;
+	padding: 5px 10px;
+	border: 5px solid rgb(42, 190, 190);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-content: center;
+}
+h2{
+	text-align: center;
+	margin: 20px auto;	
+}
+.container .reqireIp{
+	flex:2;
+	margin-right: 10px;
+}
+.reqireIp input{
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+.btn{
+	display: flex;
+	justify-content: space-between;
+}
+.reqireIp #btn-record,
+.reqireIp #btn-calBill{
+	background-color: green;
+	color: #fff;
+	padding: 10px;
+	font-size: 18px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.reqireIp #btn-record:hover,
+.reqireIp #btn-calBill:hover{
+	background-color: #fff;
+	color: green;
+	border-color: green;
+}
+.container .output{
+	flex: 1;
+	background-color: palegoldenrod;
+	padding: 5px;
+	color: #000000;
+}
+.op-bills{
+	border-bottom: 2px dashed green;
+}

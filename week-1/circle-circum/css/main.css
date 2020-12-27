@@ -1,0 +1,20 @@
+*{
+	margin: 0;
+	padding: 0;
+	margin: 5px;
+	box-sizing: border-box;
+}
+
+#btn-result{
+	background-color: salmon;
+	color: #fff;
+	font-size: 18px;
+	padding: 5px;
+	border: none;
+	cursor: pointer;
+}
+#btn-result:hover{
+	border: 2px solid rgb(216, 46, 27);
+	background-color: #ffff;
+	color:rgb(216, 46, 27);;
+}

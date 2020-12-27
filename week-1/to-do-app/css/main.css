@@ -1,0 +1,138 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	padding-bottom: 10px;
+	box-sizing: border-box;
+}
+body{
+	background-color : rgb(10, 10, 10);
+	color: rgb(255, 255, 255);
+}
+.container{
+	max-width: 1000px;
+	margin: 20px auto;
+	border: 4px solid #c4c4c4;
+	padding: 30px 25px;
+
+	display: flex;
+	justify-content: space-evenly;
+}
+.note-input{
+	/* border: 2px solid red; */
+	flex: 2;
+	display: flex;
+	flex-direction: column;
+	
+	margin-right: 5px;
+}
+.note-input h2{
+	text-align: center;
+}
+.note-input .query-ip{
+	display: flex;
+	justify-items: center;
+	align-content: center;	
+}
+.note-input .query-ip #search-query{
+	flex: 3;
+	margin-right: 5px;
+}
+.note-input .query-ip #btn-search,
+.note-input .query-ip #btn-clear{
+	flex: 1;
+	margin-right: 5px;
+	align-self: flex-start;
+}
+.note-input #note-area{
+	width: 100%;
+	height: 100px;
+	padding: 5px;	
+}
+
+#btn,
+#btn-search,
+#btn-clear{
+	padding : 10px;
+	background-color: turquoise;
+	font-size: 18px;
+	color: white;
+	border :none;
+	margin-top:10px;
+	cursor: pointer;
+	align-self: flex-end;
+}
+
+#btn-clear{
+	background-color: rgb(230, 33, 66);
+}
+#btn-clear:hover{
+	background-color :#fff;
+	color: rgb(230, 33, 66);
+	border: 1px solid rgb(230, 33, 66);
+}
+#btn:hover,
+#btn-search:hover{
+	background-color :#fff;
+	color: turquoise;
+	border: 1px solid turquoise;
+}
+
+.old-note{
+	flex: 1;
+	height: 300px;
+	/* background-color: grey; */
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	align-content: space-between;
+
+	overflow: auto;
+	
+}
+.old-note #note{	
+	border: 4px solid dodgerblue;
+	border-radius: 5px;
+	padding: 5px;
+	/* height: 100px; */
+	width: 100%;
+	/* word-wrap: break-word; */
+	word-break: break-all;
+	
+	
+	margin: 5px auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.old-note #note #note-content{
+	/* border: 1px solid green; */
+	margin-right: 10px;
+	word-wrap: break-word;
+
+	flex: 5;
+
+	/* border-bottom: 1px dashed #2d2d2d;	 */
+}
+.old-note #del-icon{
+	flex: 1;
+	align-self: center;
+}
+/* .old-note #note:last-child{
+	border: none;
+} */
+
+/* .old-note #note p{
+	margin: 2px;
+} */
+
+.old-note #note i{
+	color: rgb(245, 101, 101);
+	/* margin-top: -50px; */
+	/* align-self: flex-end; */
+	cursor: pointer;
+}
+
+.old-note #note i:hover{
+	color: rgb(223, 35, 35);
+}

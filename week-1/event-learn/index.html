@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Event-Learning</title>
+</head>
+<body>
+	<!-- Event Listener -->
+	<button id="btn">Event Listener</button>
+
+	<script>
+		let butn=document.getElementById('btn');
+		
+		butn.addEventListener('click',(event)=>{
+			console.log(event);
+			alert('Event triggered!');
+		});
+	</script>
+</body>
+</html>

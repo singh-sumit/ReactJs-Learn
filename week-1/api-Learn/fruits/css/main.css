@@ -1,0 +1,9 @@
+#fruits{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+#fruits #fruit{
+   height: 100px;
+   margin: 10px;
+   padding: 5px;
+}

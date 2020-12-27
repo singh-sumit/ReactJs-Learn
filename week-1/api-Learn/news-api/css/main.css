@@ -1,0 +1,14 @@
+#news-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+#news-container #news{
+    padding: 20px 8px;
+    margin: 10px 5px;
+    max-height: 600px;
+    background-color: aliceblue;
+    border: 2px soldi green;
+}
+#news img{
+    height: 250px;
+}

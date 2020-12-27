@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>To Do App</title>
+	<link rel="stylesheet" href="css/main.css">
+	<script src="https://kit.fontawesome.com/453512aba3.js" crossorigin="anonymous"></script>
+	<script src="js/main.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="note-input">
+			<h2>To Do App</h2>
+			<div class="query-ip">
+				<input type="text" name="search-query" id="search-query" onkeypress="liveSearch()">
+				<button id="btn-search" onclick='searchItem()'>Search</button>
+				<button id="btn-clear" onclick='clearSearchItem()'>Clear</button>
+			</div>
+			<textarea name="note" id="note-area"></textarea>
+			<button id="btn" onClick='addNote()'>Add Note</button>
+		</div>
+		<div class="old-note">
+			<!-- <div id="note">
+				<p>Note Note Note Note Note Note Note Note Note</p>
+				<p>Date Date Date Date Date Date Date Date </p>
+			</div>
+			<div id="note">
+				<p>Note Note Note Note Note Note Note Note Note</p>
+				<p>Date Date Date Date Date Date Date Date </p>
+			</div> -->
+		</div>
+	</div>
+	
+</body>
+</html>
