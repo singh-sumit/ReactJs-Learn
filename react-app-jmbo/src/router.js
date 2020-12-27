@@ -8,6 +8,7 @@ import {
 import MyFirstHook from "./week-3/react-hook/firstReactHook";
 import CounterApp from "./week-3/react-hook/prevState";
 import MySecondHook from "./week-3/react-hook/secondReactHook";
+import ThirdHook from "./week-3/react-hook/thirdReactHook";
 
 export default function RouteApp() {
   return (
@@ -23,6 +24,9 @@ export default function RouteApp() {
           </Route>
           <Route path="/secondHook">
             <MySecondHook />
+          </Route>
+          <Route path="/third/profile/:id">
+            <ThirdHook />
           </Route>
         </Switch>
     </Router>
