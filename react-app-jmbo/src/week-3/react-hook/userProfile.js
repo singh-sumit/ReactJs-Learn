@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import { TextField } from "@material-ui/core";
+import { Card, TextField } from "@material-ui/core";
 
 export default function UserProfile() {
   //declare state for profile and setter function
-  const [userProfile, setUserProfile] = useState({ name: "", email: "" });
+  const [userProfile, setUserProfile] = useState({ name: "", email: "" ,address: ""});
 
   //to change profile
   function handleChange(event) {
@@ -18,7 +18,7 @@ export default function UserProfile() {
   return (
     <div>
       <Grid container justify="flex-start" spacing={2}>
-        <Grid item xs="12" sm="6">
+        <Grid item xs="12" sm="4">
           <TextField
             id="outlined-basic"
             id="name"
@@ -34,7 +34,7 @@ export default function UserProfile() {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs="12" sm="6">
+        <Grid item xs="12" sm="4">
           <TextField
             id="outlined-basic"
             id="email"
@@ -50,9 +50,40 @@ export default function UserProfile() {
             onChange={handleChange}
           />
         </Grid>
+        <Grid item xs="12" sm="4">
+          <TextField
+            id="outlined-basic"
+            id="address"
+            label="Address"
+            variant="outlined"
+            placeholder="Enter Address"
+            helperText="Please enter valid address"
+            error={false}
+            disabled={false}
+            required={true}
+            fullWidth={true}
+            value={userProfile.address}
+            onChange={handleChange}
+          />
+        </Grid>
       </Grid>
-      <p>{userProfile.name}</p>
-      <p>{userProfile.email}</p>
+
+      <Card>
+          <Grid container spacing={2}>
+              <Grid item xs="6" sm="6">Name :</Grid>
+              <Grid item xs="6" sm="6">{userProfile.name}</Grid>
+          </Grid>
+          <Grid container spacing={2}>
+              <Grid item xs="6" sm="6">Address :</Grid>
+              <Grid item xs="6" sm="6">{userProfile.address}</Grid>
+          </Grid>
+          <Grid container spacing={2}>
+                <Grid item xs="6" sm="6">Email :</Grid>
+                <Grid item xs="6" sm="6">{userProfile.email}</Grid>
+          </Grid>
+      </Card>
+      {/* <p>{userProfile.name}</p>
+      <p>{userProfile.email}</p> */}
     </div>
   );
 }
