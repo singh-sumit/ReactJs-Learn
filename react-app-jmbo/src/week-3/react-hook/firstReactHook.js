@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import MySecondHook from "./secondReactHook";
+import Bulb from "../images/bulb.jpeg";
 
 function MyFirstHook() {
   // declare state variable
@@ -24,7 +26,9 @@ function MyFirstHook() {
         Counter :{counter}
         <button onClick={()=> setCounter(counter+1)}>Click</button><br />
         <img src={imgUrl} style={{width: '30%'}} onClick={()=>handleLight()}></img>
-
+        
+        {/* sending image as props to second hook */}
+        <MySecondHook imageLoc={imgUrl} name={'This is me Sumit'} localImage={Bulb}/>
       </div>
 
     </div>

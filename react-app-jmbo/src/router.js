@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import MyFirstHook from "./week-3/react-hook/firstReactHook";
 import CounterApp from "./week-3/react-hook/prevState";
+import MySecondHook from "./week-3/react-hook/secondReactHook";
 
 export default function RouteApp() {
   return (
@@ -19,6 +20,9 @@ export default function RouteApp() {
           </Route>
           <Route path="/inc">
             <CounterApp />
+          </Route>
+          <Route path="/secondHook">
+            <MySecondHook />
           </Route>
         </Switch>
     </Router>
