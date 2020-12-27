@@ -10,6 +10,7 @@ import CounterApp from "./week-3/react-hook/prevState";
 import MySecondHook from "./week-3/react-hook/secondReactHook";
 import ThirdHook from "./week-3/react-hook/thirdReactHook";
 import UserProfile from "./week-3/react-hook/userProfile";
+import EffectHook from "./week-3/react-hook/effectHook";
 
 export default function RouteApp() {
   return (
@@ -31,6 +32,9 @@ export default function RouteApp() {
           </Route>
           <Route path="/user">
             <UserProfile />
+          </Route>
+          <Route path="/effectHook">
+            <EffectHook />
           </Route>
         </Switch>
     </Router>
