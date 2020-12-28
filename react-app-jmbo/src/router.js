@@ -15,6 +15,7 @@ import TimerApp from "./week-3/timer/timerApp";
 import ApiCallExampleHook from "./week-3/react-hook/api-call-example";
 import PaginationPageNumber from "./week-3/pagination/pagination-pageNumber";
 import PaginationLoadMore from "./week-3/pagination/pagination_loadmore";
+import UserProfileList from "./week-3/react-hook/user-profile-retriver";
 
 export default function RouteApp() {
   return (
@@ -34,7 +35,7 @@ export default function RouteApp() {
           <Route path="/third/profile/:id">
             <ThirdHook />
           </Route>
-          <Route path="/user">
+          <Route path="/user-profile">
             <UserProfile />
           </Route>
           <Route path="/effectHook">
@@ -51,6 +52,9 @@ export default function RouteApp() {
           </Router>
           <Router path="/pageLoadMore">
             <PaginationLoadMore />
+          </Router>
+          <Router path="/user-list">
+            <UserProfileList />
           </Router>
         </Switch>
     </Router>

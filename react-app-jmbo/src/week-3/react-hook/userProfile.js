@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Button, Card, TextField } from "@material-ui/core";
-import firebase from 'firebase';
+import { Button, Card, CircularProgress, TextField } from "@material-ui/core";
+import firebase from "firebase";
+import { useHistory } from "react-router-dom";
 
 export default function UserProfile() {
   //declare state for profile and setter function
-  const [userProfile, setUserProfile] = useState({ name: "", email: "" ,address: "",bio:"",phone: "",occupation: ""});
-
+  const [userProfile, setUserProfile] = useState({
+    name: "",
+    email: "",
+    address: "",
+    bio: "",
+    phone: "",
+    occupation: "",
+  });
+  const [isSaving, setIsSaving] = useState(false);
+  let history = useHistory();
   //to change profile
   function handleChange(event) {
     var eId = event.target.id;
@@ -14,30 +23,38 @@ export default function UserProfile() {
     console.log(userProfile);
     // setUserProfile(userProfile);
     // console.log(event.target.value);
-    setUserProfile({...userProfile, userProfile });
+    setUserProfile({ ...userProfile, userProfile });
   }
 
-  const handleSaveData=()=>{
+  const handleSaveData = () => {
     const firestore = firebase.firestore();
-    
-    firestore.collection("user-feedback").add({
-      name : userProfile.name,
-      address : userProfile.address,
-      email : userProfile.email,
-      bio : userProfile.bio,
-      phone : userProfile.phone,
-      occupation : userProfile.occupation
-    }).then(function(response){
-      alert('success');
-    }).catch(function(error){
-      alert('error');
-    })
+    setIsSaving(true);
+
+    firestore
+      .collection("user-feedback")
+      .add({
+        name: userProfile.name,
+        address: userProfile.address,
+        email: userProfile.email,
+        bio: userProfile.bio,
+        phone: userProfile.phone,
+        occupation: userProfile.occupation,
+      })
+      .then(function (response) {
+        /* alert("success"); */
+        setIsSaving(false);
+        history.push('/user-list');
+      })
+      .catch(function (error) {
+        alert("error");
+        console.log('error ',error);
+      });
     console.log(userProfile);
-  }
+  };
   return (
-    <div style={{margin : '30px'}}>  
+    <div style={{ margin: "30px" }}>
       <Grid container justify="flex-start" spacing={2}>
-        <Grid item xs="12" sm="4" style={{marginTop : '20px'}}>
+        <Grid item xs="12" sm="4" style={{ marginTop: "20px" }}>
           <TextField
             id="outlined-basic"
             id="name"
@@ -46,14 +63,14 @@ export default function UserProfile() {
             placeholder="Enter Name"
             helperText="Please enter valid name"
             error={false}
-            disabled={false}
+            disabled={isSaving}
             required={true}
             fullWidth={true}
             value={userProfile.name}
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs="12" sm="4" style={{marginTop : '20px'}}>
+        <Grid item xs="12" sm="4" style={{ marginTop: "20px" }}>
           <TextField
             id="outlined-basic"
             id="email"
@@ -62,14 +79,14 @@ export default function UserProfile() {
             placeholder="Enter email"
             helperText="Please enter valid email"
             error={false}
-            disabled={false}
+            disabled={isSaving}
             required={true}
             fullWidth={true}
             value={userProfile.email}
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs="12" sm="4" style={{marginTop : '20px'}}>
+        <Grid item xs="12" sm="4" style={{ marginTop: "20px" }}>
           <TextField
             id="outlined-basic"
             id="address"
@@ -78,7 +95,7 @@ export default function UserProfile() {
             placeholder="Enter Address"
             helperText="Please enter valid address"
             error={false}
-            disabled={false}
+            disabled={isSaving}
             required={true}
             fullWidth={true}
             value={userProfile.address}
@@ -94,7 +111,7 @@ export default function UserProfile() {
             placeholder="Enter phone number"
             helperText="Please enter valid phone number"
             error={false}
-            disabled={false}
+            disabled={isSaving}
             required={true}
             fullWidth={true}
             value={userProfile.phone}
@@ -110,7 +127,7 @@ export default function UserProfile() {
             placeholder="Enter occupation"
             helperText="Please enter valid occupation"
             error={false}
-            disabled={false}
+            disabled={isSaving}
             required={true}
             fullWidth={true}
             value={userProfile.occupation}
@@ -126,46 +143,82 @@ export default function UserProfile() {
             placeholder="Enter Bio"
             helperText="Please enter valid Bio"
             error={false}
-            disabled={false}
+            disabled={isSaving}
             required={true}
             fullWidth={true}
             value={userProfile.bio}
             onChange={handleChange}
-            rowsMax = {5}
-            rows = {3}
-            multiline = {true}
+            rowsMax={5}
+            rows={3}
+            multiline={true}
           />
         </Grid>
       </Grid>
-      <div style={{textAlign : 'right'}}>
-        <Button variant="contained" color="secondary" onClick={handleSaveData}>Submit</Button>
+      <div style={{ textAlign: "right" }}>
+        {isSaving ? (
+          <CircularProgress />
+        ) : (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleSaveData}
+            disabled={isSaving}
+          >
+            Submit
+          </Button>
+        )}
       </div>
-      <Card style={{margin : '30px'}}>
-          <Grid container spacing={2} >
-              <Grid item xs="6" sm="6">Name :</Grid>
-              <Grid item xs="6" sm="6">{userProfile.name}</Grid>
+      <Card style={{ margin: "30px" }}>
+        <Grid container spacing={2}>
+          <Grid item xs="6" sm="6">
+            Name :
           </Grid>
-          <Grid container spacing={2}>
-              <Grid item xs="6" sm="6">Address :</Grid>
-              <Grid item xs="6" sm="6">{userProfile.address}</Grid>
+          <Grid item xs="6" sm="6">
+            {userProfile.name}
           </Grid>
-          <Grid container spacing={2}>
-                <Grid item xs="6" sm="6">Email :</Grid>
-                <Grid item xs="6" sm="6">{userProfile.email}</Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs="6" sm="6">
+            Address :
           </Grid>
-          <Grid container spacing={2}>
-                <Grid item xs="6" sm="6">Phone no. :</Grid>
-                <Grid item xs="6" sm="6">{userProfile.phone}</Grid>
+          <Grid item xs="6" sm="6">
+            {userProfile.address}
           </Grid>
-          <Grid container spacing={2}>
-                <Grid item xs="6" sm="6">Occupation :</Grid>
-                <Grid item xs="6" sm="6">{userProfile.occupation}</Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs="6" sm="6">
+            Email :
           </Grid>
-          <Grid container spacing={2}>
-                <Grid item xs="6" sm="6">Bio :</Grid>
-                <Grid item xs="6" sm="6">{userProfile.bio}</Grid>
+          <Grid item xs="6" sm="6">
+            {userProfile.email}
           </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs="6" sm="6">
+            Phone no. :
+          </Grid>
+          <Grid item xs="6" sm="6">
+            {userProfile.phone}
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs="6" sm="6">
+            Occupation :
+          </Grid>
+          <Grid item xs="6" sm="6">
+            {userProfile.occupation}
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs="6" sm="6">
+            Bio :
+          </Grid>
+          <Grid item xs="6" sm="6">
+            {userProfile.bio}
+          </Grid>
+        </Grid>
       </Card>
+      {console.log(typeof userProfile.name)}
       {/* <p>{userProfile.name}</p>
       <p>{userProfile.email}</p> */}
     </div>
