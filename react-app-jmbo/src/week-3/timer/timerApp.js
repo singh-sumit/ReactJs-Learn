@@ -1,11 +1,13 @@
 import { Button, Card, Grid, TextField } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import CustomDialog from "./customDialog";
 
 export default function TimerApp() {
   let [time, setTime] = useState(5);
   const [timer, setTimer] = useState();
   const [isAlert, setIsAlert] = useState(false);
   let [auxCount, setAuxCount] = useState(0);
+  const [openDialog, setOpenDialog] =useState(false);
 
   function handleChange(event) {
     setTime(event.target.value);
@@ -31,6 +33,7 @@ export default function TimerApp() {
           setIsAlert(!isAlert);
           setAuxCount(0);
           setTime(0);
+          setOpenDialog(true);
         } else {
           // setTime(time--);
           setAuxCount(auxCount++);
@@ -45,8 +48,11 @@ export default function TimerApp() {
     console.log("called");
   }, [isAlert]);
 
+  function onCloseDialog(){
+    setOpenDialog(false);
+  }
   return (
-    <div style={{ maxWidth: 600, margin: 'auto' }}>
+    <div style={{ maxWidth: 600, margin: 'auto',textAlign: 'center' }}>
       <h1>This is Timer App.</h1>
       <Grid container justify="flex-start" spacing={2}>
         <Grid item xs="9" sm="9">
@@ -69,6 +75,7 @@ export default function TimerApp() {
         <Card>
           <h2>{auxCount}</h2>
         </Card>
+        <CustomDialog openDialouge={openDialog} onCloseDialog={onCloseDialog}/>
       </div>
     </div>
   );
