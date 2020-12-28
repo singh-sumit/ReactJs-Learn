@@ -11,13 +11,7 @@ export default function TimerApp() {
 
     const [audio] = useState(new Audio("https://www.w3schools.com/html/horse.mp3"));
     const [playing, setPlaying] = useState(false);
-  
-    // useEffect(() => {
-    //     playing ? audio.play() : audio.pause();
-    //   },
-    //   [playing]
-    // );
-  
+    
   function handleChange(event) {
     setTime(event.target.value);
     console.log("time :" + time);

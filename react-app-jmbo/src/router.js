@@ -12,6 +12,7 @@ import ThirdHook from "./week-3/react-hook/thirdReactHook";
 import UserProfile from "./week-3/react-hook/userProfile";
 import EffectHook from "./week-3/react-hook/effectHook";
 import TimerApp from "./week-3/timer/timerApp";
+import ApiCallExampleHook from "./week-3/react-hook/api-call-example";
 
 export default function RouteApp() {
   return (
@@ -39,6 +40,9 @@ export default function RouteApp() {
           </Route>
           <Route path="/timer">
             <TimerApp />
+          </Route>
+          <Route path="/hook-api-call">
+            <ApiCallExampleHook />
           </Route>
         </Switch>
     </Router>
