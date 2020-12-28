@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Card, TextField } from "@material-ui/core";
+import { Button, Card, TextField } from "@material-ui/core";
+import firebase from 'firebase';
 
 export default function UserProfile() {
   //declare state for profile and setter function
-  const [userProfile, setUserProfile] = useState({ name: "", email: "" ,address: ""});
+  const [userProfile, setUserProfile] = useState({ name: "", email: "" ,address: "",bio:"",phone: "",occupation: ""});
 
   //to change profile
   function handleChange(event) {
@@ -15,10 +16,28 @@ export default function UserProfile() {
     // console.log(event.target.value);
     setUserProfile({...userProfile, userProfile });
   }
+
+  const handleSaveData=()=>{
+    const firestore = firebase.firestore();
+    
+    firestore.collection("user-feedback").add({
+      name : userProfile.name,
+      address : userProfile.address,
+      email : userProfile.email,
+      bio : userProfile.bio,
+      phone : userProfile.phone,
+      occupation : userProfile.occupation
+    }).then(function(response){
+      alert('success');
+    }).catch(function(error){
+      alert('error');
+    })
+    console.log(userProfile);
+  }
   return (
-    <div>
+    <div style={{margin : '30px'}}>  
       <Grid container justify="flex-start" spacing={2}>
-        <Grid item xs="12" sm="4">
+        <Grid item xs="12" sm="4" style={{marginTop : '20px'}}>
           <TextField
             id="outlined-basic"
             id="name"
@@ -34,7 +53,7 @@ export default function UserProfile() {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs="12" sm="4">
+        <Grid item xs="12" sm="4" style={{marginTop : '20px'}}>
           <TextField
             id="outlined-basic"
             id="email"
@@ -50,7 +69,7 @@ export default function UserProfile() {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs="12" sm="4">
+        <Grid item xs="12" sm="4" style={{marginTop : '20px'}}>
           <TextField
             id="outlined-basic"
             id="address"
@@ -66,10 +85,63 @@ export default function UserProfile() {
             onChange={handleChange}
           />
         </Grid>
+        <Grid item xs="12" sm="6">
+          <TextField
+            id="outlined-basic"
+            id="phone"
+            label="Enter phone"
+            variant="outlined"
+            placeholder="Enter phone number"
+            helperText="Please enter valid phone number"
+            error={false}
+            disabled={false}
+            required={true}
+            fullWidth={true}
+            value={userProfile.phone}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs="12" sm="6">
+          <TextField
+            id="outlined-basic"
+            id="occupation"
+            label="Enter occupation"
+            variant="outlined"
+            placeholder="Enter occupation"
+            helperText="Please enter valid occupation"
+            error={false}
+            disabled={false}
+            required={true}
+            fullWidth={true}
+            value={userProfile.occupation}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs="12" sm="12">
+          <TextField
+            id="outlined-basic"
+            id="bio"
+            label="User Bio"
+            variant="outlined"
+            placeholder="Enter Bio"
+            helperText="Please enter valid Bio"
+            error={false}
+            disabled={false}
+            required={true}
+            fullWidth={true}
+            value={userProfile.bio}
+            onChange={handleChange}
+            rowsMax = {5}
+            rows = {3}
+            multiline = {true}
+          />
+        </Grid>
       </Grid>
-
-      <Card>
-          <Grid container spacing={2}>
+      <div style={{textAlign : 'right'}}>
+        <Button variant="contained" color="secondary" onClick={handleSaveData}>Submit</Button>
+      </div>
+      <Card style={{margin : '30px'}}>
+          <Grid container spacing={2} >
               <Grid item xs="6" sm="6">Name :</Grid>
               <Grid item xs="6" sm="6">{userProfile.name}</Grid>
           </Grid>
@@ -80,6 +152,18 @@ export default function UserProfile() {
           <Grid container spacing={2}>
                 <Grid item xs="6" sm="6">Email :</Grid>
                 <Grid item xs="6" sm="6">{userProfile.email}</Grid>
+          </Grid>
+          <Grid container spacing={2}>
+                <Grid item xs="6" sm="6">Phone no. :</Grid>
+                <Grid item xs="6" sm="6">{userProfile.phone}</Grid>
+          </Grid>
+          <Grid container spacing={2}>
+                <Grid item xs="6" sm="6">Occupation :</Grid>
+                <Grid item xs="6" sm="6">{userProfile.occupation}</Grid>
+          </Grid>
+          <Grid container spacing={2}>
+                <Grid item xs="6" sm="6">Bio :</Grid>
+                <Grid item xs="6" sm="6">{userProfile.bio}</Grid>
           </Grid>
       </Card>
       {/* <p>{userProfile.name}</p>
