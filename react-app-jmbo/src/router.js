@@ -13,6 +13,7 @@ import UserProfile from "./week-3/react-hook/userProfile";
 import EffectHook from "./week-3/react-hook/effectHook";
 import TimerApp from "./week-3/timer/timerApp";
 import ApiCallExampleHook from "./week-3/react-hook/api-call-example";
+import PaginationPageNumber from "./week-3/pagination/pagination-pageNumber";
 
 export default function RouteApp() {
   return (
@@ -44,6 +45,9 @@ export default function RouteApp() {
           <Route path="/hook-api-call">
             <ApiCallExampleHook />
           </Route>
+          <Router path="/pageNumber">
+            <PaginationPageNumber />
+          </Router>
         </Switch>
     </Router>
   );
