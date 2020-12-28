@@ -7,12 +7,22 @@ export default function TimerApp() {
   const [timer, setTimer] = useState();
   const [isAlert, setIsAlert] = useState(false);
   let [auxCount, setAuxCount] = useState(0);
-  const [openDialog, setOpenDialog] =useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
+    const [audio] = useState(new Audio("https://www.w3schools.com/html/horse.mp3"));
+    const [playing, setPlaying] = useState(false);
+  
+    // useEffect(() => {
+    //     playing ? audio.play() : audio.pause();
+    //   },
+    //   [playing]
+    // );
+  
   function handleChange(event) {
     setTime(event.target.value);
     console.log("time :" + time);
   }
+
   function runTimer() {
     /*******************
      * method -1
@@ -31,6 +41,8 @@ export default function TimerApp() {
         if (time == auxCount) {
           alert("time out");
           setIsAlert(!isAlert);
+          setPlaying(true);
+          audio.loop=true;
           setAuxCount(0);
           setTime(0);
           setOpenDialog(true);
@@ -45,14 +57,17 @@ export default function TimerApp() {
 
   useEffect(() => {
     clearInterval(timer);
-    console.log("called");
-  }, [isAlert]);
+    playing? audio.play() : audio.pause();
 
-  function onCloseDialog(){
+    console.log("called");
+  }, [isAlert,playing]);
+
+  function onCloseDialog() {
     setOpenDialog(false);
+    setPlaying(false);
   }
   return (
-    <div style={{ maxWidth: 600, margin: 'auto',textAlign: 'center' }}>
+    <div style={{ maxWidth: 600, margin: "auto", textAlign: "center" }}>
       <h1>This is Timer App.</h1>
       <Grid container justify="flex-start" spacing={2}>
         <Grid item xs="9" sm="9">
@@ -75,7 +90,11 @@ export default function TimerApp() {
         <Card>
           <h2>{auxCount}</h2>
         </Card>
-        <CustomDialog openDialouge={openDialog} onCloseDialog={onCloseDialog}/>
+        <CustomDialog
+          openDialouge={openDialog}
+          onCloseDialog={onCloseDialog}
+          dialogContent={<div>Alert! Alert! It's time Now</div>}
+        />
       </div>
     </div>
   );

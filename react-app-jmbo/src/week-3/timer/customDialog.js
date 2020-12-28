@@ -22,7 +22,7 @@ export default function CustomDialog(props) {
         <DialogTitle id="responsive-dialog-title">Alert !!!</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            sdakfjals dfsa
+            {props.dialogContent}
           </DialogContentText>
         </DialogContent>
       </Dialog>
