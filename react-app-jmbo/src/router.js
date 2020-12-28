@@ -14,6 +14,7 @@ import EffectHook from "./week-3/react-hook/effectHook";
 import TimerApp from "./week-3/timer/timerApp";
 import ApiCallExampleHook from "./week-3/react-hook/api-call-example";
 import PaginationPageNumber from "./week-3/pagination/pagination-pageNumber";
+import PaginationLoadMore from "./week-3/pagination/pagination_loadmore";
 
 export default function RouteApp() {
   return (
@@ -47,6 +48,9 @@ export default function RouteApp() {
           </Route>
           <Router path="/pageNumber">
             <PaginationPageNumber />
+          </Router>
+          <Router path="/pageLoadMore">
+            <PaginationLoadMore />
           </Router>
         </Switch>
     </Router>

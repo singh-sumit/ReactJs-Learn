@@ -3,6 +3,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import axios from "axios";
 import {
   Avatar,
+    Button,
   Card,
   CardContent,
   CardHeader,
@@ -16,32 +17,33 @@ import {
   Typography,
 } from "@material-ui/core";
 
-export default function PaginationPageNumber() {
-  //   const [pageState, setPageState] = useState({
-  //     pageNumber: 0,
-  //     isLoading: true,
-  //     isError: false,
-  //     pageData: [],
-  //     totalPage: 0,
-  //   });
-  const [pageState, setPageState] = useReducer(
-    (pageState, newPageState) => ({ ...pageState, ...newPageState }),
-    {
+export default function PaginationLoadMore() {
+    const [pageState, setPageState] = useState({
       pageNumber: 0,
       isLoading: true,
       isError: false,
       pageData: [],
       totalPage: 0,
       pageSize: 10,
-    }
-  );
-  const handleChangePage = (event, newPage) => {
-    setPageState({
-      pageNumber: newPage - 1,
-      isLoading: true,
+      isLoadingMore : false
     });
+//   const [pageState, setPageState] = useReducer(
+//     (pageState, newPageState) => ({ ...pageState, ...newPageState }),
+//     {
+//       pageNumber: 0,
+//       isLoading: true,
+//       isError: false,
+//       pageData: [],
+//       totalPage: 0,
+//       pageSize: 10,
+//     }
+//   );
+  const handleChangePage = (event) => {
+      pageState.pageNumber = pageState.pageNumber + 1;
+      pageState.isLoadingMore = true;
+    setPageState({...pageState,pageState});
+
     //   getData();
-    console.log(newPage);
   };
 
   const handleChangePageSize = (event) => {
@@ -63,22 +65,16 @@ export default function PaginationPageNumber() {
   const getData = async () => {
     console.log("from axios part" + pageState.totalPage);
     await axios
-      .get(
-        "https://api.instantwebtools.net/v1/passenger?page=" +
-          pageState.pageNumber +
-          "&size=" +
-          pageState.pageSize
-      )
+      .get("https://api.instantwebtools.net/v1/passenger?page=" +pageState.pageNumber +"&size=" +pageState.pageSize)
       .then(function (response) {
-        setPageState({
-          isLoading: false,
-          pageData: response.data.data,
-          totalPage: response.data.totalPages,
-        });
-        // pageState.isLoading = false;
-        // pageState.pageData = response.data.data;
-        // pageState.totalPage = [response.data.totalPages];
-        // setPageState({...pageState,pageState});
+          let oldData = pageState.pageData;
+        pageState.isLoading = false;
+        pageState.isLoadingMore = false;
+        pageState.pageData = oldData.concat(response.data.data);
+        //pageState.pageData.concat(oldData);
+        // pageState.pageData.push(oldData);
+        pageState.totalPage = response.data.totalPages;
+        setPageState({...pageState,pageState});
         console.log(pageState);
       })
       .catch(function (err) {
@@ -145,11 +141,9 @@ export default function PaginationPageNumber() {
         )}
       </div>
       <div style={{ margin: "20px auto" }}>
-        <Pagination
-          count={pageState.totalPage}
-          onChange={handleChangePage}
-          variant="outlined"
-        />
+          {pageState.isLoadingMore ? <CircularProgress /> :
+            <Button onClick={handleChangePage} variant="contained" color="secondary">Load More</Button>
+          }
       </div>
       {console.log(pageState)}
     </div>
