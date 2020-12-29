@@ -69,10 +69,11 @@ export default function UserProfileList() {
     setSelectedDoc(id);
     setOpenDialog(true);
   }
+  
   return (
     <div>
         <div>
-         <Button onClick={()=>history.push('/user-profile')} color="primary" variant="contained">Add More FeedBack</Button>   
+         <Button onClick={()=>history.push('/user-profile/add')} color="primary" variant="contained">Add More FeedBack</Button>   
         </div>
       {isloading ? (
         <CircularProgress />
@@ -81,27 +82,23 @@ export default function UserProfileList() {
           {data.map((item) => {
             return (
               <div>
-                <ListItem>
+                <ListItem onClick={()=> history.push('/user-profile/'+item.id)}>
                   <ListItemText
                     primary={item.data().name[0]}
                     secondary={item.data().email[0]}
                   />
-                </ListItem>
-                <ListItem>
                   <ListItemText
                     primary={item.data().address[0]}
                     secondary={item.data().phone[0]}
+                  />
+                  <ListItemText
+                    primary={item.data().bio[0]}
+                    secondary={item.data().occupation[0]}
                   />
                    <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="comments"></IconButton>
                   <DeleteIcon onClick={()=>onSelectDocForDelete(item.id)}/>
                 </ListItemSecondaryAction>
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    primary={item.data().bio[0]}
-                    secondary={item.data().occupation[0]}
-                  />
                 </ListItem> 
                 <Divider />
               </div>

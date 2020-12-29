@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { Button, Card, CircularProgress, TextField } from "@material-ui/core";
 import firebase from "firebase";
-import { useHistory } from "react-router-dom";
+import { useHistory ,useParams} from "react-router-dom";
 
 export default function UserProfile() {
   //declare state for profile and setter function
@@ -16,6 +16,7 @@ export default function UserProfile() {
   });
   const [isSaving, setIsSaving] = useState(false);
   let history = useHistory();
+  let params = useParams();
   //to change profile
   function handleChange(event) {
     var eId = event.target.id;
@@ -28,29 +29,83 @@ export default function UserProfile() {
 
   const handleSaveData = () => {
     const firestore = firebase.firestore();
-    setIsSaving(true);
+      setIsSaving(true);
+    if(params.id === 'add'){
+        
+      firestore
+        .collection("user-feedback")
+        .add({
+          name: userProfile.name,
+          address: userProfile.address,
+          email: userProfile.email,
+          bio: userProfile.bio,
+          phone: userProfile.phone,
+          occupation: userProfile.occupation,
+        })
+        .then(function (response) {
+          /* alert("success"); */
+          setIsSaving(false);
+          history.push('/user-list');
+        })
+        .catch(function (error) {
+          alert("error");
+          console.log('error ',error);
+        });
+      console.log(userProfile);
 
-    firestore
-      .collection("user-feedback")
-      .add({
-        name: userProfile.name,
-        address: userProfile.address,
-        email: userProfile.email,
-        bio: userProfile.bio,
-        phone: userProfile.phone,
-        occupation: userProfile.occupation,
-      })
-      .then(function (response) {
-        /* alert("success"); */
-        setIsSaving(false);
-        history.push('/user-list');
-      })
-      .catch(function (error) {
-        alert("error");
-        console.log('error ',error);
-      });
-    console.log(userProfile);
+    }else{
+      //edit data
+      firestore
+        .collection("user-feedback").doc(params.id)
+        .update({
+          name: userProfile.name,
+          address: userProfile.address,
+          email: userProfile.email,
+          bio: userProfile.bio,
+          phone: userProfile.phone,
+          occupation: userProfile.occupation,
+        })
+        .then(function (response) {
+          /* alert("success"); */
+          setIsSaving(false);
+          history.push('/user-list');
+        })
+        .catch(function (error) {
+          alert("error");
+          console.log('error ',error);
+        });
+      console.log(userProfile);
+    }
   };
+  const getDatabyId=()=>{
+    const firestore = firebase.firestore();
+
+    var docRef = firestore.collection('user-feedback').doc("/"+params.id);
+
+    docRef.get().then(function(doc){
+      if(doc.exists){
+        console.log("Document data :",doc.data());
+        userProfile.name = doc.data().name;
+        userProfile.email = doc.data().email;
+        userProfile.address = doc.data().address;
+        userProfile.bio = doc.data().bio;
+        userProfile.phone = doc.data().phone;
+        userProfile.occupation = doc.data().occupation;
+        setUserProfile({...userProfile,userProfile});
+      }else{
+        console.log("NO such document");
+      }
+    }).catch(function(err){
+      console.log('error ',err);
+    })
+}
+
+useEffect(()=>{
+  if(params.id != 'add'){
+    getDatabyId();
+  }
+},[true])
+
   return (
     <div style={{ margin: "30px" }}>
       <Grid container justify="flex-start" spacing={2}>

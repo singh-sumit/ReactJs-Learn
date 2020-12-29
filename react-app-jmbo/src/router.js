@@ -16,6 +16,8 @@ import ApiCallExampleHook from "./week-3/react-hook/api-call-example";
 import PaginationPageNumber from "./week-3/pagination/pagination-pageNumber";
 import PaginationLoadMore from "./week-3/pagination/pagination_loadmore";
 import UserProfileList from "./week-3/react-hook/user-profile-retriver";
+import TodoHome from "./week-3/todo-app-firebase/todo-home";
+import TodoNotesList from "./week-3/todo-app-firebase/todo-notes-list";
 
 export default function RouteApp() {
   return (
@@ -35,7 +37,7 @@ export default function RouteApp() {
           <Route path="/third/profile/:id">
             <ThirdHook />
           </Route>
-          <Route path="/user-profile">
+          <Route path="/user-profile/:id">
             <UserProfile />
           </Route>
           <Route path="/effectHook">
@@ -55,6 +57,12 @@ export default function RouteApp() {
           </Router>
           <Router path="/user-list">
             <UserProfileList />
+          </Router>
+          <Router path="/todo-home" exact>
+            <TodoHome />
+          </Router>
+          <Router path="/todo-list" exact>
+            <TodoNotesList />
           </Router>
         </Switch>
     </Router>
