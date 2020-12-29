@@ -12,7 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { loginWithSocialAccount } from "./loginManager";
+import { loginWithSocialAccount ,signup,signin} from "./loginManager";
 
 function Copyright() {
   return (
@@ -68,7 +68,43 @@ const useStyles = makeStyles((theme) => ({
 export default function LogIn() {
   const classes = useStyles();
   const [isLogin, setIsLogin] = useState(false);
+const [email, setEmail]= useState('');
+const [password, setPassword]= useState('');
 
+const handleChange=(event)=>{
+    if(event.target.id === 'email'){
+        setEmail(event.target.value);
+    }else{
+        setPassword(event.target.value);
+    }
+}
+
+const onRegisterUser=()=>{
+    setIsLogin(true);
+    if(email!="" && password !=""){
+        signup(email,password).then(function(response){
+            console.log('sign up response',response);
+            setIsLogin(false);
+        }).catch(function(err){
+            setIsLogin(false);
+            console.log('sign up err ',err);
+            
+        })
+    }
+}
+
+const onSignIn=()=>{
+    setIsLogin(true);
+    if(email!="" && password !=""){
+        signin(email,password).then(function(response){
+            console.log('sign in response',response);
+            setIsLogin(false);
+        }).catch(function(err){
+            setIsLogin(false);
+            console.log('sign in err ',err);
+        })
+    }
+}
   const loginWithGoogle = () => {
     setIsLogin(true);
     loginWithSocialAccount("google")
@@ -104,6 +140,7 @@ export default function LogIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleChange}
             />
             <TextField
               variant="outlined"
@@ -115,6 +152,7 @@ export default function LogIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handleChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -126,6 +164,8 @@ export default function LogIn() {
               variant="contained"
               color="primary"
               className={classes.submit}
+            onClick={onSignIn}
+            disabled={isLogin}
             >
               Sign In
             </Button>
@@ -136,7 +176,7 @@ export default function LogIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" onClick={onRegisterUser}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

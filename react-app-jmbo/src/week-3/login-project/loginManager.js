@@ -8,3 +8,11 @@ export async function loginWithSocialAccount(accountType){
 
     }
 }
+
+export async function signup(email,password){
+    return await firebase.auth().createUserWithEmailAndPassword(email,password);
+}
+
+export async function signin(email,password){
+    return await firebase.auth().signInWithEmailAndPassword(email,password);
+}
