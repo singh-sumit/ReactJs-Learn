@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { loginWithSocialAccount ,signup,signin} from "./loginManager";
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -70,6 +71,7 @@ export default function LogIn() {
   const [isLogin, setIsLogin] = useState(false);
 const [email, setEmail]= useState('');
 const [password, setPassword]= useState('');
+let history = useHistory();
 
 const handleChange=(event)=>{
     if(event.target.id === 'email'){
@@ -99,6 +101,7 @@ const onSignIn=()=>{
         signin(email,password).then(function(response){
             console.log('sign in response',response);
             setIsLogin(false);
+            history.push('/chat');
         }).catch(function(err){
             setIsLogin(false);
             console.log('sign in err ',err);
@@ -111,6 +114,7 @@ const onSignIn=()=>{
       .then(function (response) {
         console.log(response);
         setIsLogin(false);
+        history.push('/chat');
       })
       .catch(function (err) {
         setIsLogin(false);

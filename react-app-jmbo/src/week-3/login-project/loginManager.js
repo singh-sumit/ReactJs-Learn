@@ -16,3 +16,5 @@ export async function signup(email,password){
 export async function signin(email,password){
     return await firebase.auth().signInWithEmailAndPassword(email,password);
 }
+
+
