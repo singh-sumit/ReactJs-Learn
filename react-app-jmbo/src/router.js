@@ -18,6 +18,7 @@ import PaginationLoadMore from "./week-3/pagination/pagination_loadmore";
 import UserProfileList from "./week-3/react-hook/user-profile-retriver";
 import TodoHome from "./week-3/todo-app-firebase/todo-home";
 import TodoNotesList from "./week-3/todo-app-firebase/todo-notes-list";
+import LogIn from "./week-3/login-project/login";
 
 export default function RouteApp() {
   return (
@@ -65,6 +66,9 @@ export default function RouteApp() {
             <TodoNotesList />
           </Router>
         </Switch>
+        <Router path="/login" exact>
+          <LogIn />
+        </Router>
     </Router>
   );
 }
