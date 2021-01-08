@@ -15,6 +15,8 @@ import TodoHome from "./week-3/todo-app-firebase/todo-home";
 import TodoNotesList from "./week-3/todo-app-firebase/todo-notes-list";
 import LogIn from "./week-3/login-project/login";
 import Chat from "./week-3/login-project/chat";
+import HomePage from "./home";
+import TodoLogIn from "./week-3/todo-app-firebase/todo-login";
 
 export default function RouteApp() {
   return (
@@ -58,7 +60,13 @@ export default function RouteApp() {
         <Route path="/todo-home" exact>
           <TodoHome />
         </Route>
-        <Route path="/todo-list" exact>
+        <Route path="/todo-home/edit" exact>
+          <TodoHome />
+        </Route>
+        <Route path="/todo-login" exact>
+          <TodoLogIn />
+        </Route>
+        <Route path="/todo-list/:id" exact>
           <TodoNotesList />
         </Route>
         <Route path="/login" exact>
@@ -67,6 +75,10 @@ export default function RouteApp() {
         <Route path="/chat" exact>
           <Chat />
         </Route>
+        <Route path="/" exact>
+          <HomePage />
+        </Route>
+
       </Switch>
     </Router>
   );
